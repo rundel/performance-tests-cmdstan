@@ -254,7 +254,7 @@ def run_golds(gold, tmp, summary, check_golds_exact):
 
 def run(exe, data, overwrite, check_golds, check_golds_exact, runs, method, num_samples):
     fails, errors = [], []
-    if not os.path.isfile(exe):
+    if not os.path.exists(exe):
         return 0, (fails, errors + ["Did not compile " + exe + "!" ])
     if runs <= 0:
         return 0, (fails, errors)
