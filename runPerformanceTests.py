@@ -254,7 +254,7 @@ def run_golds(gold, tmp, summary, check_golds_exact):
 
 def run(exe, data, overwrite, check_golds, check_golds_exact, runs, method, num_samples):
     fails, errors = [], []
-    if not os.path.isfile("../" + exe):
+    if not os.path.isfile(exe):
         return 0, (fails, errors + ["Did not compile " + exe + "!" ])
     if runs <= 0:
         return 0, (fails, errors)
@@ -337,7 +337,7 @@ def parse_args():
 def process_test(overwrite, check_golds, check_golds_exact, runs, method):
     def process_test_wrapper(tup):
         model, exe, data, num_samples = tup
-        time_, (fails, errors) = run(exe, data, overwrite, check_golds,
+        time_, (fails, errors) = run(os.path.abspath(exe), data, overwrite, check_golds,
                                      check_golds_exact, runs, method, num_samples)
         average_time = runs and time_ / runs or 0
         return (model, average_time, fails, errors)
