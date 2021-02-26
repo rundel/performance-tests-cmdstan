@@ -384,20 +384,20 @@ if __name__ == "__main__":
         map_ = tp.imap_unordered
     else:
         map_ = map
-    # if args.runs > 0:
-    #     results = map_(process_test(args.overwrite, args.check_golds,
-    #                                 args.check_golds_exact, args.runs,
-    #                                 args.method),
-    #                     tests)
-    # results = list(results)
-    # results.append(("{}.compilation".format(args.name), make_time, [], []))
-    # test_results_xml(results).write("{}.xml".format(args.name))
-    # with open("{}.csv".format(args.name), "w") as f:
-    #     f.write(test_results_csv(results))
-    # failed = False
-    # for model, _, fails, errors in results:
-    #     if fails or errors:
-    #         print("'{}' had fails '{}' and errors '{}'".format(model, fails, errors))
-    #         failed = True
-    # if failed:
-    #     sys.exit(-1)
+    if args.runs > 0:
+        results = map_(process_test(args.overwrite, args.check_golds,
+                                    args.check_golds_exact, args.runs,
+                                    args.method),
+                        tests)
+    results = list(results)
+    results.append(("{}.compilation".format(args.name), make_time, [], []))
+    test_results_xml(results).write("{}.xml".format(args.name))
+    with open("{}.csv".format(args.name), "w") as f:
+        f.write(test_results_csv(results))
+    failed = False
+    for model, _, fails, errors in results:
+        if fails or errors:
+            print("'{}' had fails '{}' and errors '{}'".format(model, fails, errors))
+            failed = True
+    if failed:
+        sys.exit(-1)
