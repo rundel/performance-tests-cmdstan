@@ -384,11 +384,10 @@ if __name__ == "__main__":
         map_ = tp.imap_unordered
     else:
         map_ = map
-    if args.runs > 0:
-        results = map_(process_test(args.overwrite, args.check_golds,
-                                    args.check_golds_exact, args.runs,
-                                    args.method),
-                        tests)
+    results = map_(process_test(args.overwrite, args.check_golds,
+                                args.check_golds_exact, args.runs,
+                                args.method),
+                    tests)
     results = list(results)
     results.append(("{}.compilation".format(args.name), make_time, [], []))
     test_results_xml(results).write("{}.xml".format(args.name))
