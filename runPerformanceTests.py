@@ -111,6 +111,7 @@ bad_models = frozenset(
      , os.path.join("example-models","ARM","Ch.23","educational_subsidy.stan")
      , os.path.join("example-models","bugs_examples","vol2","pines","pines-3.stan")
      , os.path.join("example-models","bugs_examples","vol3","fire","fire.stan")
+     , os.path.join("example-models","misc","multivariate-probit","probit-multi.stan")
      # The following have data issues
      , os.path.join("example-models","ARM","Ch.10","ideo_two_pred.stan")
      , os.path.join("example-models","ARM","Ch.16","radon.1.stan")
