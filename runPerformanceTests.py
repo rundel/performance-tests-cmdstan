@@ -89,7 +89,7 @@ def shexec(command, wd = "."):
         raise FailedCommand(returncode, command)
     return returncode
 
-def make(targets, j=8):
+def make(targets, j=1):
     for i in range(len(targets)):
         prefix = ""
         if not targets[i].startswith(os.sep):
