@@ -7,6 +7,7 @@ import os
 import os.path
 import sys
 import re
+import platform
 import subprocess
 from difflib import SequenceMatcher
 from fnmatch import fnmatch
@@ -353,6 +354,16 @@ def delete_temporary_exe_files(exes):
             if os.path.exists(exe + ext):
                 os.remove(exe + ext)
 
+def isWin():
+    return platform.system().lower().startswith(
+        "windows"
+    ) or os.name.lower().startswith("windows")
+
+batchSize = 20 if isWin() else 200
+
+def batched(tests):
+    return [tests[i : i + batchSize] for i in range(0, len(tests), batchSize)]
+
 if __name__ == "__main__":
     args = parse_args()
 
@@ -380,7 +391,9 @@ if __name__ == "__main__":
     tests = [(model, exe, find_data_for_model(model), ns)
              for model, exe, ns in zip(models, executables, num_samples)]
 
-    make_time, _ = time_step("make_all_models", make, executables, args.j)
+    for batch in batched(executables):
+        make_time, _ = time_step("make_all_models", make, executables, args.j)
+
     if args.runj > 1:
         tp = ThreadPool(args.runj)
         map_ = tp.imap_unordered
