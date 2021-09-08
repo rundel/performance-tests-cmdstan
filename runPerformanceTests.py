@@ -167,7 +167,7 @@ def stdev(coll, mean):
 
 def csv_summary(csv_file):
     d = defaultdict(list)
-    with open(csv_file, 'rb') as raw:
+    with open(csv_file, 'r') as raw:
         headers = None
         for row in csv.reader(raw):
             if row[0].startswith("#"):
@@ -185,7 +185,7 @@ def csv_summary(csv_file):
         try:
             res[k] = (mean, stdev(v, mean))
         except OverflowError as e:
-            raise OverflowError("calculating stdev for " + k)
+            res[k] = (mean, float("nan"))
     return res
 
 def format_summary_lines(summary):
